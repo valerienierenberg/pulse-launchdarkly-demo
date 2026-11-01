@@ -9,3 +9,6 @@ dist/
 .vercel
 .env*
 !.env.example
+
+# Private presenter notes (kept local only)
+docs/DEMO-SCRIPT.md
