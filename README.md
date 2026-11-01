@@ -103,6 +103,8 @@ npm run dev
 
 Open **http://localhost:5173**. The landing page is at `/`; the Pulse app is at `/app`.
 
+> **Product vs. demo tooling:** everything on screen is what Pulse users see, *except* elements marked with an amber **DEMO** chip and a dashed border. Those (the persona switcher, flag tags, LaunchDarkly live feed and the ops-tooling controls) exist only so you can watch LaunchDarkly working behind the scenes.
+
 > In LaunchDarkly, select the **pulse-demo** project and the **Production** environment. That is where the app reads its flags.
 
 ## Part 1: Release & Remediate

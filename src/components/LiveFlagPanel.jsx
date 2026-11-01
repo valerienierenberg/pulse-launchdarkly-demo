@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useBoolVariation, useStringVariation, useLDClient } from '@launchdarkly/react-sdk';
 import { FLAGS } from '../../shared/flags.js';
 import { useLiveFlagEvents } from '../ld/useLiveFlagEvents.js';
+import DemoChip from './DemoChip.jsx';
 
 function Row({ flagKey, value }) {
   const on = value === true || value === 'ai-powered';
@@ -29,7 +30,7 @@ export default function LiveFlagPanel() {
   return (
     <aside className={`livepanel ${open ? '' : 'collapsed'}`} aria-label="LaunchDarkly live feed">
       <button className="livepanel-head" onClick={() => setOpen(!open)} aria-expanded={open}>
-        <span className="dot live" /> LaunchDarkly live feed {open ? '▾' : '▸'}
+        <DemoChip /> <span className="dot live" /> LaunchDarkly live feed {open ? '▾' : '▸'}
       </button>
       {open && (
         <div className="livepanel-body">

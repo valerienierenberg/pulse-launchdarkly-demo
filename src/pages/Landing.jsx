@@ -13,6 +13,7 @@ import { useStringVariationDetail, useLDClient } from '@launchdarkly/react-sdk';
 import { FLAGS, EVENTS } from '../../shared/flags.js';
 import { describeContext, getPersona } from '../../shared/personas.js';
 import { usePersonaId } from '../ld/persona-store.js';
+import DemoChip from '../components/DemoChip.jsx';
 
 function useTrialClick() {
   const client = useLDClient();
@@ -113,7 +114,7 @@ export default function Landing({ onOpenApp }) {
   return (
     <div className="landing">
       <div className="flag-callout">
-        <code>{FLAGS.LANDING_HERO}</code> = <b>{hero.value}</b>
+        <DemoChip /> <code>{FLAGS.LANDING_HERO}</code> = <b>{hero.value}</b>
         <span className="muted"> · reason: {formatReason(hero.reason)}</span>
       </div>
 

@@ -17,6 +17,7 @@ import { FLAGS, EVENTS } from '../../shared/flags.js';
 import { INCIDENTS } from '../../shared/incidents.js';
 import AiSummaryPanel from '../components/AiSummaryPanel.jsx';
 import IncidentDetails from '../components/IncidentDetails.jsx';
+import DemoChip from '../components/DemoChip.jsx';
 
 const ERROR_THRESHOLD = 3; // errors…
 const ERROR_WINDOW_MS = 30_000; // …within 30 seconds → auto-remediate
@@ -151,7 +152,7 @@ export default function Dashboard() {
         <section className="feature-slot">
           {/* Demo annotation (not product UI): shows which experience the flag is serving. */}
           <div className="flag-callout demo-tag">
-            <code>{FLAGS.RELEASE_AI_SUMMARY}</code> = <b>{String(released)}</b>
+            <DemoChip /> <code>{FLAGS.RELEASE_AI_SUMMARY}</code> = <b>{String(released)}</b>
             <span className="muted"> · showing {released ? 'the new AI Incident Summary' : 'the current experience'}</span>
           </div>
           {released ? (
@@ -162,8 +163,15 @@ export default function Dashboard() {
             <IncidentDetails incidentId={selected} />
           )}
 
-          <div className="panel remediation">
-            <h3>Release safety</h3>
+          <div className="panel remediation demo-panel">
+            <div className="demo-panel-head">
+              <DemoChip>Demo controls</DemoChip>
+              <h3>ABC's ops tooling</h3>
+            </div>
+            <p className="muted small demo-note">
+              Not part of the Pulse product. In production this is ABC's monitoring tool (or a LaunchDarkly guarded
+              rollout) watching error rates and calling the flag trigger.
+            </p>
             <p className="muted small">
               Errors from the new feature (last 30s): <b className={recentErrors ? 'bad' : ''}>{recentErrors}</b> /{' '}
               {ERROR_THRESHOLD} limit

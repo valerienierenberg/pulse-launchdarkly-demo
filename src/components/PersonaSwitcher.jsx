@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useLDClient } from '@launchdarkly/react-sdk';
 import { PERSONAS, getPersona } from '../../shared/personas.js';
 import { loadPersonaId, savePersonaId } from '../ld/persona-store.js';
+import DemoChip from './DemoChip.jsx';
 
 export default function PersonaSwitcher() {
   const client = useLDClient();
@@ -25,7 +26,7 @@ export default function PersonaSwitcher() {
 
   return (
     <div className="persona">
-      <label htmlFor="persona-select">Viewing as</label>
+      <label htmlFor="persona-select"><DemoChip /> Viewing as</label>
       <select id="persona-select" value={personaId} onChange={(e) => choose(e.target.value)} disabled={busy}>
         {PERSONAS.map((p) => (
           <option key={p.id} value={p.id}>{p.label}</option>

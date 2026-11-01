@@ -184,3 +184,12 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0
 .facts dd code { text-transform: none; }
 .signals-title { margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; }
 .signal-list { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+/* ── Demo tooling (presenter-only, not product UI) ───── */
+:root { --demo: #ffb547; }
+.demo-chip { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--demo); border: 1px dashed var(--demo); border-radius: 999px; padding: 1px 7px; vertical-align: middle; white-space: nowrap; }
+.flag-callout, .livepanel, .demo-panel { border-style: dashed !important; border-color: rgba(255, 181, 71, 0.45) !important; }
+.demo-panel { background: rgba(255, 181, 71, 0.04); }
+.demo-panel-head { display: flex; align-items: center; gap: 10px; }
+.demo-note { margin: 0; font-style: italic; }
+.persona label { display: flex; align-items: center; gap: 6px; }
