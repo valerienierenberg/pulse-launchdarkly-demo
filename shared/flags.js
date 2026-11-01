@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Every LaunchDarkly key this app uses, in one place.
 // If you create flags by hand instead of running `npm run ld:setup`, create
-// them with exactly these keys (see README → "Creating the flags manually").
+// them with exactly these keys (see README → "Creating the LaunchDarkly resources manually").
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const FLAGS = {
