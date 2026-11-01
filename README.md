@@ -14,7 +14,7 @@ A sample app for a fictional SaaS company, **ABC Company**, whose product **Puls
 | **Extra: AI Configs** | **ABC Assistant** chatbot (`pulse-assistant`) and the incident summarizer (`pulse-incident-summarizer`) read their model + prompt from LaunchDarkly. Enterprise users get Claude Sonnet 5.5; everyone else gets Claude Haiku 5.5. Tokens, latency, success and 👍/👎 feedback are tracked per variation |
 | **Extra: Integrations** | LaunchDarkly **Observability** (errors, traces, session replay) via SDK plugins · **GitHub Code References** action · optional **Slack** and **Dynatrace** (see [Integrations](#integrations)) |
 
-> **Live demo:** _the deployed URL goes here_ · **Demo script:** [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md)
+> **Live demo:** https://pulse-launchdarkly-demo.vercel.app · **Demo script:** [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md)
 
 ---
 
@@ -77,7 +77,7 @@ Design choices worth knowing:
 ## Quick start (about 10 minutes)
 
 ```bash
-git clone https://github.com/<your-github-user>/pulse-launchdarkly-demo.git
+git clone https://github.com/valerienierenberg/pulse-launchdarkly-demo.git
 cd pulse-launchdarkly-demo
 npm install
 cp .env.example .env
