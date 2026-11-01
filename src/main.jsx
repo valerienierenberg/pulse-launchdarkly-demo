@@ -32,6 +32,9 @@ if (!clientSideId) {
       // about a second and the variation hooks re-render: this is the
       // "listener" for instant release/rollback, with no page reload.
       streaming: true,
+      // Ask LaunchDarkly to send *why* each variation was served (target,
+      // rule, default, experiment). The landing page shows it.
+      withReasons: true,
       // Extra credit (Observability): errors, logs, traces and session
       // replays go to LaunchDarkly and are linked to flag changes.
       plugins: [

@@ -136,7 +136,7 @@ Each persona in the **Viewing as** menu is a LaunchDarkly **multi-context**: a `
 | Sam Okafor | free plan, software, EU | **AI-powered** | **Individual target** (`user-sam-okafor`) |
 | Dana Lee | `dana.lee@abc-company.com` | **AI-powered** | **Rule 1**: `user.email` ends with `@abc-company.com` |
 | Priya Shah | enterprise, retail | **AI-powered** | **Rule 2**: `organization.plan` is `enterprise` AND `organization.industry` is in `retail, finance` |
-| Marco Rossi | **pro**, finance | Classic | No rule matches (pro plan) → default rule |
+| Marco Rossi | **pro**, finance | Classic, or either hero while the experiment runs | No rule matches (pro plan) → default rule, which the experiment splits 50/50 |
 | Anonymous visitor | anonymous user | Classic, or the 50/50 split while the experiment runs | Default rule |
 
 Try changing targeting live: add Marco as an individual target, or change Rule 2 to include `pro`. His hero switches within a second.
@@ -248,6 +248,7 @@ scripts/
 | Reason shows `error (FLAG_NOT_FOUND)` | The flag key doesn't exist in that environment. Compare with `shared/flags.js`. |
 | AI answers say "mock" | `ANTHROPIC_API_KEY` isn't set for the API server (or in Vercel). |
 | Chatbot says it's disabled | The `pulse-assistant` AI Config is off or serving its disabled variation. Turn targeting on. |
+| Trigger returns HTTP 429 | LaunchDarkly rate-limits each trigger URL (about once a minute). Wait a minute and fire it again. |
 | Kill switch says "not set" | `LD_KILL_SWITCH_TRIGGER_URL` is missing. Re-create a trigger and paste the URL (it's only shown once). |
 | Experiment shows no data | It must be **running**, and only default-rule visitors count. Run `npm run ld:traffic` and wait a few minutes. |
 | Ad blocker console errors | Some blockers block event/telemetry endpoints. Disable them for localhost. |
