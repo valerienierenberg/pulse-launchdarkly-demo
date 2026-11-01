@@ -16,6 +16,10 @@ A sample app for a fictional SaaS company, **ABC Company**, whose product **Puls
 
 > **Live demo:** https://pulse-launchdarkly-demo.vercel.app
 
+![Release and automatic remediation: a feature is released with a LaunchDarkly flag, starts failing, and a trigger rolls it back in about 9 seconds](docs/media/release-remediate.gif)
+
+*Release & remediate on the live site: the flag releases the AI Incident Summary with no deploy; when it starts failing, the error spike fires a LaunchDarkly trigger and customers are back on the familiar view in about 9 seconds.*
+
 ---
 
 ## Contents
