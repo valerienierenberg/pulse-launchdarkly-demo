@@ -71,9 +71,9 @@ Design choices worth knowing:
 ## Assumptions about your environment
 
 - **macOS, Linux or Windows (WSL)** with a terminal.
-- **Node.js 20 or newer** and npm (`node -v`). Built and tested on Node 26.
+- **Node.js 22.9 or newer** and npm (`node -v`). The npm scripts use Node's built-in `--env-file-if-exists` option, added in 22.9. Built and tested on Node 26.
 - **Git**, and a GitHub account if you want the code-references action.
-- A **LaunchDarkly account** (a [free trial](https://launchdarkly.com/start-trial/) works) where you can create an **API access token** with the *Writer* or *Admin* role.
+- A **LaunchDarkly account** (a [free trial](https://launchdarkly.com/start-trial/) works) where you can create an **API access token** with the *Admin* role (the setup script creates a new project).
 - Optional: an **Anthropic API key** ([console.anthropic.com](https://console.anthropic.com)). The cheapest model (Haiku 5.5) costs fractions of a cent per answer. Set a monthly spend limit on the key.
 - Optional: a **Vercel account** to deploy (the free Hobby plan is enough).
 - Ports **5173** (web) and **3001** (API) are free on your machine.
@@ -87,7 +87,7 @@ npm install
 cp .env.example .env
 ```
 
-**1. Create a LaunchDarkly API access token.** In LaunchDarkly: **Organization settings → Authorization → Access tokens → Create token**, role **Writer**. Paste it into `.env` as `LD_API_TOKEN=...`.
+**1. Create a LaunchDarkly API access token.** In LaunchDarkly: **Organization settings → Authorization → Access tokens → Create token**, role **Admin** (the setup script creates a new project, so use Admin to be safe). Paste it into `.env` as `LD_API_TOKEN=...`.
 
 **2. Create every flag, metric, trigger, AI Config and experiment with one command:**
 
@@ -95,9 +95,9 @@ cp .env.example .env
 npm run ld:setup
 ```
 
-This creates a new project, `pulse-demo`, and writes `VITE_LD_CLIENT_SIDE_ID`, `LD_SDK_KEY` and `LD_KILL_SWITCH_TRIGGER_URL` into your `.env`. It is safe to re-run: anything that exists is skipped. (Prefer the UI? See [Creating the LaunchDarkly resources manually](#creating-the-launchdarkly-resources-manually).)
+This creates a new project, `pulse-demo`, and writes `VITE_LD_CLIENT_SIDE_ID`, `LD_SDK_KEY` and `LD_KILL_SWITCH_TRIGGER_URL` into your `.env`. It is safe to re-run: anything that exists is skipped. The project key comes from `LD_PROJECT_KEY` in `.env` (default `pulse-demo`). If your account already has a project with that key, set a different one, such as `LD_PROJECT_KEY=pulse-demo-yourname`, before running setup; otherwise the script reuses the existing project. (Prefer the UI? See [Creating the LaunchDarkly resources manually](#creating-the-launchdarkly-resources-manually).)
 
-**3. (Optional) Add your Anthropic key** to `.env` as `ANTHROPIC_API_KEY=...`.
+**3. (Optional) Add your Anthropic key** to `.env` as `ANTHROPIC_API_KEY=...`. Without it, the AI features return clearly labelled mock answers. If you add or change any `.env` value while the app is running, stop and restart `npm run dev`.
 
 **4. Run it:**
 
@@ -109,7 +109,9 @@ Open **http://localhost:5173**. The landing page is at `/`; the Pulse app is at 
 
 > **Product vs. demo tooling:** everything on screen is what Pulse users see, *except* elements marked with an amber **DEMO** chip and a dashed border. Those (the persona switcher, flag tags, LaunchDarkly live feed and the ops-tooling controls) exist only so you can watch LaunchDarkly working behind the scenes.
 
-> In LaunchDarkly, select the **pulse-demo** project and the **Production** environment. That is where the app reads its flags.
+> In LaunchDarkly, select the **pulse-demo** project (or your `LD_PROJECT_KEY`) and the **Production** environment. That is where the app reads its flags.
+>
+> The app starts as **Priya Shah** (an enterprise customer). Use the **Viewing as** menu to switch personas; your choice is remembered across reloads.
 
 ## Part 1: Release & Remediate
 
@@ -168,7 +170,7 @@ Try changing targeting live: add Marco as an individual target, or change Rule 2
 
 - Click **✦ Ask AI** (bottom right) to open **ABC Assistant**. Each answer shows the **model** and **AI Config variation** used, with 👍/👎 buttons.
 - `pulse-assistant` has three variations:
-  - `concise-haiku`: Claude Haiku 5.5, short answers. This is the **default**.
+  - `concise-haiku`: Claude Haiku 5.5, short answers. This is the **default** for free and pro customers (try Sam). Priya, the starting persona, is enterprise, so she gets `detailed-sonnet`.
   - `detailed-sonnet`: Claude Sonnet 5.5, a step-by-step troubleshooter. Served to **enterprise** orgs by a targeting rule.
   - `detailed-haiku`: the detailed prompt on the cheaper model, a candidate for an experiment.
 - Prompts use variables: `{{userName}}`, `{{role}}`, `{{company}}`, `{{plan}}` and `{{industry}}` are filled in from the context (`server/llm.js`).
@@ -257,6 +259,8 @@ scripts/
 | Trigger returns HTTP 429 | LaunchDarkly rate-limits each trigger URL (about once a minute). Wait a minute and fire it again. |
 | Kill switch says "not set" | `LD_KILL_SWITCH_TRIGGER_URL` is missing. Re-create a trigger and paste the URL (it's only shown once). |
 | Experiment shows no data | It must be **running**, and only default-rule visitors count. Run `npm run ld:traffic` and wait a few minutes. |
+| `http://127.0.0.1:5173` won't load | Vite listens on `localhost` by default. Use **http://localhost:5173**, or start the front end with `npx vite --host 127.0.0.1`. |
+| `npm run dev` fails with "bad option: --env-file-if-exists" | Your Node.js is older than 22.9. Upgrade Node (`node -v` to check). |
 | Ad blocker console errors | Some blockers block event/telemetry endpoints. Disable them for localhost. |
 
 ---
