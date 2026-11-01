@@ -109,7 +109,7 @@ Open **http://localhost:5173**. The landing page is at `/`; the Pulse app is at 
 
 *Scenario: ABC's engineering manager must ship faster without risking quality. Test in production, release instantly, and roll back in seconds if something breaks.*
 
-1. Open **http://localhost:5173/app**. The incident details card says the AI Incident Summary isn't released.
+1. Open **http://localhost:5173/app**. Users see the current incident details view (status, service, raw signals). The small tag above it shows `release-ai-incident-summary = false`.
 2. In LaunchDarkly, open **release-ai-incident-summary** and switch it **On** (Production). Within about a second, the **AI Incident Summary** panel appears with no reload, and the live feed logs the change. That's the **release**.
 3. Toggle it **Off**. The panel disappears instantly. That's the **rollback**.
 4. **Simulate a bad release.** Turn the release flag back on, then turn on **demo-inject-summary-errors**. The panel starts crashing every few seconds. Each crash goes to LaunchDarkly Observability (`LDObserve.recordError`) and sends an `incident-summary-error` event.

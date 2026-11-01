@@ -109,7 +109,6 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0
 .badge.new { font-size: 0.65rem; background: var(--accent); color: white; padding: 2px 7px; border-radius: 999px; vertical-align: middle; }
 .meta { color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; margin-top: 12px; }
 .signals summary { cursor: pointer; color: var(--muted); }
-.placeholder { border-style: dashed; }
 .error-panel { border-color: var(--bad); background: rgba(255, 92, 122, 0.07); }
 .error-panel h3 { color: #ffb3c1; }
 .remediation { display: grid; gap: 10px; }
@@ -176,3 +175,12 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0
   .livepanel { position: static; width: 100%; margin-top: 24px; }
   .chat { width: calc(100vw - 40px); }
 }
+
+/* ── Current incident details (flag OFF experience) ──── */
+.demo-tag { margin: 0; justify-self: start; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px 16px; margin: 4px 0 14px; }
+.facts dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.facts dd { margin: 2px 0 0; font-weight: 600; text-transform: capitalize; }
+.facts dd code { text-transform: none; }
+.signals-title { margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.72rem; }
+.signal-list { margin: 0; padding-left: 18px; display: grid; gap: 4px; }

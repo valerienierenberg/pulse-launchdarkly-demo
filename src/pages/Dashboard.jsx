@@ -16,6 +16,7 @@ import { LDObserve } from '@launchdarkly/observability';
 import { FLAGS, EVENTS } from '../../shared/flags.js';
 import { INCIDENTS } from '../../shared/incidents.js';
 import AiSummaryPanel from '../components/AiSummaryPanel.jsx';
+import IncidentDetails from '../components/IncidentDetails.jsx';
 
 const ERROR_THRESHOLD = 3; // errors…
 const ERROR_WINDOW_MS = 30_000; // …within 30 seconds → auto-remediate
@@ -148,18 +149,17 @@ export default function Dashboard() {
         </section>
 
         <section className="feature-slot">
+          {/* Demo annotation (not product UI): shows which experience the flag is serving. */}
+          <div className="flag-callout demo-tag">
+            <code>{FLAGS.RELEASE_AI_SUMMARY}</code> = <b>{String(released)}</b>
+            <span className="muted"> · showing {released ? 'the new AI Incident Summary' : 'the current experience'}</span>
+          </div>
           {released ? (
             <FeatureErrorBoundary key={`${resetKey}-${injectErrors}`} onError={reportError}>
               <AiSummaryPanel incidentId={selected} injectErrors={injectErrors} />
             </FeatureErrorBoundary>
           ) : (
-            <div className="panel placeholder">
-              <h3>Incident details</h3>
-              <p className="muted">
-                The new <b>AI Incident Summary</b> is behind the <code>{FLAGS.RELEASE_AI_SUMMARY}</code> flag and is
-                not released for this user. Turn the flag on in LaunchDarkly and it appears here instantly.
-              </p>
-            </div>
+            <IncidentDetails incidentId={selected} />
           )}
 
           <div className="panel remediation">
