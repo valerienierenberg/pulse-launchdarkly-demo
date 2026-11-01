@@ -29,7 +29,7 @@ function mockSummary(incident) {
     `**Likely cause:** ${incident.signals[2] ?? incident.signals[0]}.`,
     `**Impact:** about ${incident.affectedUsers.toLocaleString()} users affected.`,
     '**Next steps:** roll back the most recent change and watch error rate and latency.',
-    '_(Mock summary: no ANTHROPIC_API_KEY set.)_',
+    '(Mock summary: no `ANTHROPIC_API_KEY` set.)',
   ].join('\n');
 }
 

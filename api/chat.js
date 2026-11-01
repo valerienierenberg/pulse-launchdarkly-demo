@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       variables: describeContext(context),
       messages,
       mockReply:
-        '(Mock reply: no ANTHROPIC_API_KEY is set.) In a real setup I would answer using the model and prompt from the pulse-assistant AI Config.',
+        '(Mock reply: no `ANTHROPIC_API_KEY` is set.) In a real setup I would answer using the model and prompt from the pulse-assistant AI Config.',
     });
     await flush();
     if (!result.enabled) {

@@ -16,7 +16,9 @@ export default function Assistant() {
   const [busy, setBusy] = useState(false);
   const endRef = useRef(null);
 
-  useEffect(() => endRef.current?.scrollIntoView({ behavior: 'smooth' }), [messages, busy]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, busy]);
 
   async function send(text) {
     const content = text.trim();
@@ -80,7 +82,7 @@ export default function Assistant() {
               </div>
             )}
             {messages.map((m, i) => (
-              <div key={i} className={`msg ${m.role} ${m.meta?.error ? 'err' : ''}`}>
+              <div key={i} className={`msg from-${m.role} ${m.meta?.error ? 'err' : ''}`}>
                 {m.role === 'assistant' ? <Markdownish text={m.content} /> : <p>{m.content}</p>}
                 {m.meta?.model && (
                   <div className="msg-meta">
@@ -96,7 +98,7 @@ export default function Assistant() {
                 )}
               </div>
             ))}
-            {busy && <div className="msg assistant"><p className="muted shimmer">Thinking…</p></div>}
+            {busy && <div className="msg from-assistant"><p className="muted shimmer">Thinking…</p></div>}
             <div ref={endRef} />
           </div>
           <form onSubmit={(e) => { e.preventDefault(); send(input); }}>

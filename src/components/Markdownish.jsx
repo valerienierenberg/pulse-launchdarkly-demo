@@ -1,7 +1,7 @@
 // Very small, safe renderer for **bold**, _italic_, `code` and "- " lists in
 // LLM output. No HTML is injected; everything is rendered as React text nodes.
 function inline(text) {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|_[^_]+_)/g).filter(Boolean);
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|(?<!\w)_[^_\n]+_(?!\w))/g).filter(Boolean);
   return parts.map((p, i) => {
     if (p.startsWith('**')) return <b key={i}>{p.slice(2, -2)}</b>;
     if (p.startsWith('`')) return <code key={i}>{p.slice(1, -1)}</code>;
